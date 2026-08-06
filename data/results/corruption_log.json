@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-08-06T09:06:14.294118+00:00",
+  "baseline_rows": 24,
+  "scenarios": [
+    {
+      "type": "blank_summary",
+      "paper_id": "10.2118/234689-pa",
+      "before": "Summary In high-risk industrial settings, leveraging large language models (LLMs) for automated accident analysis and ge",
+      "after": ""
+    },
+    {
+      "type": "stale_date",
+      "paper_id": "10.1007/s10278-026-02086-9",
+      "before": "2026-07-13",
+      "after": "2000-01-01"
+    },
+    {
+      "type": "add_noise",
+      "paper_id": "10.21203/rs.3.rs-10178277/v1",
+      "before": "Title: Retrieval-Augmented Large-Language-Model-Based Time-Series Forecasting for Cross-Market Equity Analysis | Authors",
+      "after": " ##!!$$ zzqx random unrelated gibberish lorem ipsum 9f3k2 !!## Title: Retrieval-Augmented Large-Language-Model-Based Tim"
+    },
+    {
+      "type": "duplicate",
+      "paper_id": "10.2118/234689-pa",
+      "before": "1 row",
+      "after": "2 rows"
+    },
+    {
+      "type": "duplicate",
+      "paper_id": "10.1007/s10278-026-02086-9",
+      "before": "1 row",
+      "after": "2 rows"
+    }
+  ],
+  "affected_paper_ids": [
+    "10.1007/s10278-026-02086-9",
+    "10.2118/234689-pa",
+    "10.21203/rs.3.rs-10178277/v1"
+  ],
+  "corrupted_rows": 26,
+  "scenario_count": 4
+}

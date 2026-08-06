@@ -1,0 +1,44 @@
+{
+  "report_name": "baseline_quality",
+  "generated_at": "2026-08-06T08:44:50.907166+00:00",
+  "total_rows": 24,
+  "checks_total": 6,
+  "checks_passed": 6,
+  "checks_failed": 0,
+  "success": true,
+  "checks": [
+    {
+      "check": "row_count",
+      "success": true,
+      "rows": 24,
+      "min_rows": 5
+    },
+    {
+      "check": "paper_id_not_null",
+      "success": true,
+      "null_paper_ids": 0
+    },
+    {
+      "check": "paper_id_unique",
+      "success": true,
+      "duplicate_paper_ids": 0
+    },
+    {
+      "check": "title_not_null",
+      "success": true,
+      "null_titles": 0
+    },
+    {
+      "check": "summary_min_length",
+      "success": true,
+      "short_summaries": 0,
+      "min_chars": 100
+    },
+    {
+      "check": "freshness_age_days",
+      "success": true,
+      "stale_rows": 0,
+      "threshold_days": 180
+    }
+  ]
+}

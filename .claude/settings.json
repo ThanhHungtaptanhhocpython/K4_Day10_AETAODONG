@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tasklist)",
+      "Read(//d/LabVinUni/K4_Day10_Data-Pipeline-Data-Observability/**)"
+    ]
+  }
+}

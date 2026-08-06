@@ -5,3 +5,8 @@ lab.txt
 src/*.egg-info/
 lab/
 **/__pycache__/
+
+# Vector database lon - tai tao duoc khi chay lai pipeline, khong commit
+data/chroma/
+# Embedding manifest tai tao duoc (giu artifact bang chung khac: raw/clean/eval/results)
+data/embeddings/*.json

@@ -9,9 +9,9 @@
 | Họ và tên       | Nguyễn Thế Khiêm             |
 | MSSV               | 2A202601036                     |
 | Khóa/Lớp         | K4              |
-| Tên nhóm         | [Tên hoặc mã nhóm]     |
+| Tên nhóm         | [AETAODONG]     |
 | Vai trò chính    | Vai trò 2 — Nền tảng dữ liệu & recovery (ingest \| clean) |
-| Repository         | [Đường dẫn repository] |
+| Repository         | [https://github.com/ThanhHungtaptanhhocpython/K4_Day10_Data-Pipeline-Data-Observability/tree/khiem/dev] |
 | Ngày hoàn thành | 2026-08-06               |
 
 ## 2. Vai trò và phạm vi công việc

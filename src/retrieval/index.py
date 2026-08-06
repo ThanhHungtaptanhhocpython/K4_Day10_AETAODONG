@@ -44,22 +44,31 @@ class LocalEmbeddingIndex:
     def _build_documents(df: pd.DataFrame) -> list[dict[str, Any]]:
         records = df.to_dict(orient="records")
         documents: list[dict[str, Any]] = []
+
+        def meta_value(value: Any) -> str:
+            if value is None:
+                return ""
+            if isinstance(value, float) and pd.isna(value):
+                return ""
+            text = str(value)
+            return "" if text.lower() == "nan" else text
+
         for index, row in enumerate(records):
             documents.append(
                 {
                     "record_id": f"{row['paper_id']}::{index}",
-                    "paper_id": row["paper_id"],
-                    "title": row["title"],
-                    "content": row["text_for_embedding"],
+                    "paper_id": meta_value(row["paper_id"]),
+                    "title": meta_value(row["title"]),
+                    "content": meta_value(row["text_for_embedding"]),
                     "metadata": {
-                        "paper_id": row["paper_id"],
-                        "title": row["title"],
-                        "published": row["published"],
-                        "authors_joined": row["authors_joined"],
-                        "categories_joined": row["categories_joined"],
-                        "summary": row["summary"],
-                        "abs_url": row["abs_url"],
-                        "pdf_url": row["pdf_url"],
+                        "paper_id": meta_value(row["paper_id"]),
+                        "title": meta_value(row["title"]),
+                        "published": meta_value(row["published"]),
+                        "authors_joined": meta_value(row.get("authors_joined", "")),
+                        "categories_joined": meta_value(row.get("categories_joined", "")),
+                        "summary": meta_value(row.get("summary", "")),
+                        "abs_url": meta_value(row.get("abs_url", "")),
+                        "pdf_url": meta_value(row.get("pdf_url", "")),
                     },
                 }
             )

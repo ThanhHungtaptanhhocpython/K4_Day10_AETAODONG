@@ -1,0 +1,53 @@
+{
+  "actions": [
+    {
+      "type": "drop_latest_records",
+      "count": 3,
+      "paper_ids": [
+        "10.1111/exsy.70341",
+        "10.2118/234689-pa",
+        "10.1007/s10278-026-02086-9"
+      ]
+    },
+    {
+      "type": "blank_summary",
+      "count": 2,
+      "paper_ids": [
+        "10.21203/rs.3.rs-10178277/v1",
+        "10.2196/preprints.106157"
+      ]
+    },
+    {
+      "type": "inject_noise",
+      "paper_id": "10.3390/buildings16132637"
+    },
+    {
+      "type": "truncate_title",
+      "count": 2,
+      "paper_ids": [
+        "10.35314/3y9hy151",
+        "10.20944/preprints202602.0996.v1"
+      ]
+    },
+    {
+      "type": "stale_published_date",
+      "count": 3,
+      "paper_ids": [
+        "10.21203/rs.3.rs-10178277/v1",
+        "10.2196/preprints.106157",
+        "10.3390/buildings16132637"
+      ],
+      "published": "2024-05-28"
+    },
+    {
+      "type": "add_duplicates",
+      "count": 2,
+      "paper_ids": [
+        "10.21203/rs.3.rs-10178277/v1",
+        "10.2196/preprints.106157"
+      ]
+    }
+  ],
+  "original_rows": 24,
+  "corrupted_rows": 23
+}

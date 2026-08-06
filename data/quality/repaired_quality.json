@@ -1,0 +1,43 @@
+{
+  "report_name": "repaired_quality",
+  "success": true,
+  "failed_checks": [],
+  "row_count": 24,
+  "checks": [
+    {
+      "name": "row_count_positive",
+      "success": true,
+      "details": "Found 24 rows."
+    },
+    {
+      "name": "paper_id_not_null",
+      "success": true,
+      "details": "Null/blank paper_id count: 0"
+    },
+    {
+      "name": "paper_id_unique",
+      "success": true,
+      "details": "Unique paper_id count: 24/24"
+    },
+    {
+      "name": "title_not_null",
+      "success": true,
+      "details": "Null/blank title count: 0"
+    },
+    {
+      "name": "summary_min_length",
+      "success": true,
+      "details": "Summaries shorter than 40 chars: 0"
+    },
+    {
+      "name": "freshness_threshold",
+      "success": true,
+      "details": "Stale rows older than 180 days: 0"
+    },
+    {
+      "name": "text_for_embedding_present",
+      "success": true,
+      "details": "Empty text_for_embedding rows: 0"
+    }
+  ]
+}

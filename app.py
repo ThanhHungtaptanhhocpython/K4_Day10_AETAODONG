@@ -111,10 +111,10 @@ def get_dashboard_data():
 @app.post("/api/chat")
 def chat_with_agent(req: ChatRequest):
     settings = load_settings()
-    collection_name = settings.vectorstore.corrupted_collection if req.use_corrupted else settings.vectorstore.baseline_collection
+    embeddings_path = settings.paths.corrupted_embeddings_json if req.use_corrupted else settings.paths.embeddings_json
     
     try:
-        index = LocalEmbeddingIndex(settings, collection_name=collection_name)
+        index = LocalEmbeddingIndex.load(settings, embeddings_path=embeddings_path)
         agent = build_agent(settings, index)
         response = run_agent_question(agent, req.message)
         return {"response": response}

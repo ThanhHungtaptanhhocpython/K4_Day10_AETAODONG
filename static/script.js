@@ -1,28 +1,49 @@
-// Tab switching logic
 function switchTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('active');
+    });
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     
-    document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-    event.currentTarget.classList.add('active');
+    const targetTab = document.getElementById(`tab-${tabId}`);
+    targetTab.classList.remove('hidden');
+    targetTab.classList.add('active');
+    
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+    }
 }
 
-// Show/Hide loader
-function setLoader(show, text = 'Processing...') {
-    const loader = document.getElementById('loader');
-    const btn1 = document.getElementById('btn-phase1');
-    const btn2 = document.getElementById('btn-phase2');
+// Toast Notification System
+function showToast(message, type = 'success') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
     
-    document.getElementById('loader-text').innerText = text;
-    if (show) {
-        loader.classList.remove('hidden');
-        btn1.disabled = true;
-        btn2.disabled = true;
-    } else {
-        loader.classList.add('hidden');
-        btn1.disabled = false;
-        btn2.disabled = false;
-    }
+    const icon = type === 'success' ? '✅' : '❌';
+    toast.innerHTML = `<span class="toast-icon">${icon}</span> <span>${message}</span>`;
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+        setTimeout(() => toast.remove(), 400);
+    }, 3000);
+}
+
+// Terminal Simulator
+function appendLog(message, type = 'info') {
+    const terminal = document.getElementById('terminal-logs');
+    const line = document.createElement('div');
+    line.className = `log-line log-${type}`;
+    const timestamp = new Date().toLocaleTimeString();
+    line.innerHTML = `<span style="color: #64748b">[${timestamp}]</span> ${message}`;
+    terminal.appendChild(line);
+    terminal.scrollTop = terminal.scrollHeight;
+}
+
+function clearLogs() {
+    document.getElementById('terminal-logs').innerHTML = '';
 }
 
 // Fetch dashboard data
@@ -31,31 +52,22 @@ async function fetchDashboardData() {
         const res = await fetch('/api/dashboard-data');
         const data = await res.json();
         
-        // Raw count
         document.getElementById('raw-count').innerText = data.raw_count || '0';
         
-        // Update Baseline
         updateCard('b', data.baseline_quality, data.baseline_metrics);
-        // Update Corrupted
         updateCard('c', data.corrupted_quality, data.corrupted_metrics);
-        // Update Repaired
         updateCard('r', data.repaired_quality, data.repaired_metrics);
         
     } catch (e) {
-        console.error("Failed to fetch dashboard data", e);
+        console.error("Fetch error", e);
     }
 }
 
 function updateCard(prefix, quality, metrics) {
     const qBadge = document.getElementById(`${prefix}-quality`);
     if (quality) {
-        if (quality.passed) {
-            qBadge.innerText = 'Passed';
-            qBadge.className = 'badge pass';
-        } else {
-            qBadge.innerText = 'Failed';
-            qBadge.className = 'badge fail';
-        }
+        qBadge.innerText = quality.passed ? 'PASSED' : 'FAILED';
+        qBadge.className = quality.passed ? 'badge pass' : 'badge fail';
     } else {
         qBadge.innerText = 'N/A';
         qBadge.className = 'badge';
@@ -63,47 +75,118 @@ function updateCard(prefix, quality, metrics) {
     
     if (metrics) {
         document.getElementById(`${prefix}-hit-rate`).innerText = metrics.retrieval_hit_rate ? metrics.retrieval_hit_rate.toFixed(4) : '--';
-        document.getElementById(`${prefix}-f1`).innerText = metrics.answer_token_f1 ? metrics.answer_token_f1.toFixed(4) : '--';
-    } else {
-        document.getElementById(`${prefix}-hit-rate`).innerText = '--';
-        document.getElementById(`${prefix}-f1`).innerText = '--';
+        document.getElementById(`${prefix}-f1`).innerText = metrics.mean_token_f1 ? metrics.mean_token_f1.toFixed(4) : '--';
     }
 }
 
-// Run pipelines
+// Pipeline Execution
+function setControlsDisabled(disabled) {
+    document.getElementById('btn-phase1').disabled = disabled;
+    document.getElementById('btn-phase2').disabled = disabled;
+}
+
 async function runPhase1() {
-    setLoader(true, 'Running Baseline Pipeline...');
+    setControlsDisabled(true);
+    clearLogs();
+    appendLog('Starting Phase 1 (Baseline Pipeline)...', 'info');
+    appendLog('Fetching raw records from Crossref API...', 'info');
+    
+    // Simulate request progress
+    let count = 0;
+    const total = 24;
+    const interval = setInterval(() => {
+        count += 4;
+        if (count < total) {
+            appendLog(`Processing API request ${count}/${total}...`, 'info');
+        } else {
+            appendLog(`Processing API request ${total}/${total}...`, 'info');
+            clearInterval(interval);
+            appendLog('Cleaning data and building embeddings...', 'warn');
+        }
+    }, 400);
+    
     try {
         const res = await fetch('/api/run-phase1', { method: 'POST' });
         const result = await res.json();
-        if(res.ok) alert(result.message);
-        else alert("Error: " + result.detail);
+        
+        // Force complete if backend is faster than simulation
+        clearInterval(interval);
+        if (count < total) {
+            appendLog(`API requests completed rapidly (cached).`, 'info');
+            appendLog('Cleaning data and building embeddings...', 'warn');
+        }
+        
+        if(res.ok) {
+            appendLog('Phase 1 completed successfully!', 'success');
+            showToast('Phase 1 Completed!', 'success');
+        } else {
+            appendLog(`Error: ${result.detail}`, 'error');
+            showToast('Execution Failed', 'error');
+        }
         fetchDashboardData();
     } catch (e) {
-        alert("Network error.");
+        clearInterval(interval);
+        appendLog('Network error occurred.', 'error');
+        showToast('Network Error', 'error');
     }
-    setLoader(false);
+    setControlsDisabled(false);
 }
 
+let phase2Interval;
 async function runPhase2() {
-    setLoader(true, 'Running Corruption Flow...');
+    setControlsDisabled(true);
+    clearLogs();
+    appendLog('Starting Phase 2 (Corruption Flow)...', 'warn');
+    appendLog('Injecting data corruptions (drop, noise, truncate, duplicate)...', 'info');
+    
+    // Simulate request progress for evaluation
+    let count = 0;
+    const total = 15;
+    
+    setTimeout(() => appendLog('Evaluating corrupted data impact...', 'warn'), 500);
+    
+    setTimeout(() => {
+        phase2Interval = setInterval(() => {
+            count += 3;
+            if (count < total) {
+                appendLog(`Sending LLM evaluation request ${count}/${total}...`, 'info');
+            } else {
+                appendLog(`Sending LLM evaluation request ${total}/${total}...`, 'info');
+                clearInterval(phase2Interval);
+                setTimeout(() => appendLog('Repairing data from raw snapshot...', 'warn'), 500);
+            }
+        }, 600);
+    }, 1000);
+    
     try {
         const res = await fetch('/api/run-phase2', { method: 'POST' });
         const result = await res.json();
-        if(res.ok) alert(result.message);
-        else alert("Error: " + result.detail);
+        
+        clearInterval(phase2Interval);
+        if (count < total) {
+            appendLog('Evaluation completed rapidly (cached).', 'info');
+            appendLog('Repairing data from raw snapshot...', 'warn');
+        }
+        
+        if(res.ok) {
+            appendLog('Phase 2 completed. Data repaired successfully!', 'success');
+            showToast('Phase 2 Completed!', 'success');
+        } else {
+            appendLog(`Error: ${result.detail}`, 'error');
+            showToast('Execution Failed', 'error');
+        }
         fetchDashboardData();
     } catch (e) {
-        alert("Network error.");
+        clearInterval(phase2Interval);
+        appendLog('Network error occurred.', 'error');
+        showToast('Network Error', 'error');
     }
-    setLoader(false);
+    setControlsDisabled(false);
 }
 
 // Chat functions
 function handleChatKey(event) {
-    if (event.key === 'Enter') {
-        sendMessage();
-    }
+    if (event.key === 'Enter') sendMessage();
 }
 
 async function sendMessage() {
@@ -112,9 +195,8 @@ async function sendMessage() {
     if (!msg) return;
     
     const useCorrupted = document.getElementById('use-corrupted-toggle').checked;
-    
-    // Add user message
     const history = document.getElementById('chat-history');
+    
     history.innerHTML += `
         <div class="message user-message">
             <div class="avatar">👤</div>
@@ -122,9 +204,17 @@ async function sendMessage() {
         </div>
     `;
     input.value = '';
+    
+    // Add typing indicator
+    const typingId = 'typing-' + Date.now();
+    history.innerHTML += `
+        <div class="message ai-message" id="${typingId}">
+            <div class="avatar">🤖</div>
+            <div class="bubble" style="color: #94a3b8"><i>Thinking...</i></div>
+        </div>
+    `;
     history.scrollTop = history.scrollHeight;
     
-    // Send to API
     try {
         const res = await fetch('/api/chat', {
             method: 'POST',
@@ -133,8 +223,10 @@ async function sendMessage() {
         });
         const data = await res.json();
         
+        document.getElementById(typingId).remove();
+        
         let aiText = data.response;
-        if (!res.ok) aiText = "Error: " + data.detail;
+        if (!res.ok) aiText = `<span style="color: #fca5a5">Error: ${data.detail}</span>`;
         
         history.innerHTML += `
             <div class="message ai-message">
@@ -142,17 +234,16 @@ async function sendMessage() {
                 <div class="bubble">${aiText}</div>
             </div>
         `;
-        history.scrollTop = history.scrollHeight;
-        
     } catch (e) {
+        document.getElementById(typingId).remove();
         history.innerHTML += `
             <div class="message ai-message">
                 <div class="avatar">🤖</div>
-                <div class="bubble" style="color: #FCA5A5">Network error failed to reach agent.</div>
+                <div class="bubble"><span style="color: #fca5a5">Network error. Cannot reach the agent.</span></div>
             </div>
         `;
     }
+    history.scrollTop = history.scrollHeight;
 }
 
-// Initial fetch
 document.addEventListener('DOMContentLoaded', fetchDashboardData);

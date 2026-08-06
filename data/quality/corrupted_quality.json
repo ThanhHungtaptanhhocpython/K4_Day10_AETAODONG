@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "row_count": 23,
+  "null_paper_ids": 0,
+  "duplicate_paper_ids": 1,
+  "null_titles": 0,
+  "empty_titles": 0,
+  "short_summaries": 1,
+  "stale_rows": 1
+}

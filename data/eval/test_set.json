@@ -1,0 +1,137 @@
+[
+  {
+    "id": "0f5fe736-4a8b-4f8a-a473-c4c8ce99ae1a",
+    "question_type": "summary",
+    "question": "What is the main topic or summary of the paper 'SafeRAG: A Large-Language-Model-Based Multistage Retrieval-Augmented Framework for Oil and Gas Safety Report Generation'?",
+    "ground_truth": "Summary\n                  In high-risk industrial settings, leveraging large language models (LLMs) for automated accident analysis and generating safety reports has emerged as an efficient workflow. However, this approach is fundamentally constrained by the models’ inherent knowledge limitations, frequently resulting in analyses that lack domain-specific understanding and regulatory alignment.\n                  To tackle this issue, we introduce SafeRAG, a multistage retrieval-augmented framework for safety report generation. Specifically, the framework uses an entity-centric approach that prompts the LLMs to internally generate domain-specific knowledge. Concurrently, it performs a hierarchical retrieval of external regulations relevant to the accident at topic, concept, and context levels. To obtain well-structured reports, we leverage prompt engineering, integrating internal and external knowledge. Furthermore, a domain-expert persona is also assigned to help LLMs analyze accidents from a specific perspective. To evaluate our approach, we construct a data set from 10,818 accident-description/report pairs collected from real-world industry reports. Experiments show that SafeRAG substantially outperforms baseline LLMs on metrics that include bidirectional encoder representations from transformers (BERTScore) and bidirectional auto-regressive transformers (BARTScore), demonstrating the effectiveness of our approach.",
+    "ground_truth_doc_ids": [
+      "10.2118/234689-pa"
+    ]
+  },
+  {
+    "id": "71763cf7-8881-4da2-b5f0-e29bb2b5b710",
+    "question_type": "authors",
+    "question": "Who are the authors of the paper 'SafeRAG: A Large-Language-Model-Based Multistage Retrieval-Augmented Framework for Oil and Gas Safety Report Generation'?",
+    "ground_truth": "Qianwen Cao, Chiyu Zhang, Junxiong Ning, Gongru Li",
+    "ground_truth_doc_ids": [
+      "10.2118/234689-pa"
+    ]
+  },
+  {
+    "id": "4c494ab4-c50e-42c9-a871-c3eaec012910",
+    "question_type": "date",
+    "question": "When was the paper 'SafeRAG: A Large-Language-Model-Based Multistage Retrieval-Augmented Framework for Oil and Gas Safety Report Generation' published?",
+    "ground_truth": "2026-08-01",
+    "ground_truth_doc_ids": [
+      "10.2118/234689-pa"
+    ]
+  },
+  {
+    "id": "7de132e7-9f82-4925-b3cf-33156cb8200e",
+    "question_type": "summary",
+    "question": "What is the main topic or summary of the paper 'Hi‐\n                    RAG\n                    : A Hierarchical Retrieval‐Augmented Generation Framework for Scalable and Generalisable Tool Selection in Large Language Model Agents'?",
+    "ground_truth": "ABSTRACT\n                  \n                    As tool repositories for Large Language Model (LLM) agents grow from dozens to hundreds of endpoints, flat retrieval paradigms that treat the repository as an unstructured list suffer from context overload, cross‐domain semantic collision and degraded selection accuracy. We propose Hi‐RAG, a Hierarchical Retrieval‐Augmented Generation framework that exploits the Type  Service  Tool structure of the Model Context Protocol (MCP) via a principled coarse‐to‐fine pipeline. Stage 1 applies a\n                    Tool‐as‐Proxy\n                    hybrid retrieval strategy (BM25 sparse retrieval combined with dense bi‐encoder search, fused via Weighted Reciprocal Rank Fusion) to identify candidate services efficiently. Stage 2 performs type‐aware re‐ranking over a local heterogeneous graph, integrating a domain‐level gating mechanism with contextualised tool attention for precise service scoring. We further introduce\n                    MCPBench\n                    , the first benchmark for hierarchical tool selection, comprising 201 tools across 40 real‐enterprise services—23% of queries require multi‐service reasoning. Experiments across five LLMs show Hi‐RAG improves Top‐1 accuracy by up to 7.5% (single‐service) and 10.0% (multi‐service) over Flat‐RAG, while reducing token consumption by up to 89% against full‐context injection. Comparisons with a strong late‐interaction baseline (ColBERT‐RAG) further confirm the superiority of Hi‐RAG. Zero‐shot evaluation on ToolLLM (16,464 tools) confirms scalability, and formal analyses establish  context growth with respect to repository size.",
+    "ground_truth_doc_ids": [
+      "10.1111/exsy.70341"
+    ]
+  },
+  {
+    "id": "174e39bd-0198-413f-be29-52c56e48362d",
+    "question_type": "authors",
+    "question": "Who are the authors of the paper 'Hi‐\n                    RAG\n                    : A Hierarchical Retrieval‐Augmented Generation Framework for Scalable and Generalisable Tool Selection in Large Language Model Agents'?",
+    "ground_truth": "Wei Tian, Yuhao Zhou",
+    "ground_truth_doc_ids": [
+      "10.1111/exsy.70341"
+    ]
+  },
+  {
+    "id": "dd20274e-4558-4f57-9964-fb181aa611fa",
+    "question_type": "date",
+    "question": "When was the paper 'Hi‐\n                    RAG\n                    : A Hierarchical Retrieval‐Augmented Generation Framework for Scalable and Generalisable Tool Selection in Large Language Model Agents' published?",
+    "ground_truth": "2026-08-01",
+    "ground_truth_doc_ids": [
+      "10.1111/exsy.70341"
+    ]
+  },
+  {
+    "id": "7f4e5648-2d7f-4dba-8a6d-de3776f485f3",
+    "question_type": "summary",
+    "question": "What is the main topic or summary of the paper 'JADE-Plus: A Multimodal Agentic Retrieval-Augmented Generation Large Language Framework for Diagnostic Support in Jawbone Lesions: Development and Technical Validation Study'?",
+    "ground_truth": "Abstract\n                  \n                    Diagnosing jawbone lesions in oral and maxillofacial radiology remains challenging due to overlapping radiological features and the need for integrated clinical reasoning. This study aimed to develop and validate JADE-Plus, a novel multimodal, agent-controlled retrieval-augmented generation (RAG) framework for diagnostic decision support in jawbone lesion assessment. JADE-Plus was implemented as a cloud-based, tablet-optimized system integrating a vision-language model (VLM) for panoramic radiograph analysis, a knowledge-grounded RAG module, and an agentic verification loop for diagnostic fusion and re-ranking. The system was evaluated using 40 representative jawbone lesion cases and compared with JADE, GPT-5.4, GPT-5.4 VLM, and ORAD. Performance was assessed using Top-1 and Top-3 accuracy, ablation and statistical analyses, intra-model stability, and response time. JADE-Plus achieved the highest diagnostic performance, with a Top-1 accuracy of 90% (36/40; 95% CI 76–97%) and a Top-3 accuracy of 100%, with no missed diagnoses. Cochran’s\n                    Q\n                    test demonstrated significant differences among models for both Top-3 correctness (\n                    Q\n                     = 25.66,\n                    p\n                     &lt; 0.001) and Top-1 correctness (\n                    Q\n                     = 27.55,\n                    p\n                     &lt; 0.001). Post-hoc McNemar tests with the Benjamini–Hochberg correction showed that JADE-Plus significantly outperformed other models, particularly under the stricter Top-1 evaluation. Ablation analysis showed that the agentic verification stage improved Top-1 and Top-3 accuracy by 15 and 8 percentage points, respectively. JADE-Plus achieved the highest reproducibility (mean Jaccard similarity 0.97 ± 0.12) while maintaining a mean response time of 33 ± 1.5 s per case. JADE-Plus demonstrated superior diagnostic accuracy, stability, and reproducibility compared with baseline systems, supporting multimodal agentic RAG frameworks for jawbone lesion diagnosis.",
+    "ground_truth_doc_ids": [
+      "10.1007/s10278-026-02086-9"
+    ]
+  },
+  {
+    "id": "d8aa1bb3-9fad-4cd5-96e8-ff950e8b9073",
+    "question_type": "authors",
+    "question": "Who are the authors of the paper 'JADE-Plus: A Multimodal Agentic Retrieval-Augmented Generation Large Language Framework for Diagnostic Support in Jawbone Lesions: Development and Technical Validation Study'?",
+    "ground_truth": "Soroush Baseri Saadi, Jonas Ver Berne, Rocharles Cavalcante Fontenele, Peter Claes, Reinhilde Jacobs",
+    "ground_truth_doc_ids": [
+      "10.1007/s10278-026-02086-9"
+    ]
+  },
+  {
+    "id": "cf14aee6-5b21-4c16-a78e-2800dc8ff7dc",
+    "question_type": "date",
+    "question": "When was the paper 'JADE-Plus: A Multimodal Agentic Retrieval-Augmented Generation Large Language Framework for Diagnostic Support in Jawbone Lesions: Development and Technical Validation Study' published?",
+    "ground_truth": "2026-07-13",
+    "ground_truth_doc_ids": [
+      "10.1007/s10278-026-02086-9"
+    ]
+  },
+  {
+    "id": "cfaa5bae-bd8a-45e3-ae5b-8233b66e9e44",
+    "question_type": "summary",
+    "question": "What is the main topic or summary of the paper 'Retrieval-Augmented Large-Language-Model-Based Time-Series Forecasting for Cross-Market Equity Analysis'?",
+    "ground_truth": "Abstract\n                Time-series foundation models and retrieval-based augmentation have recently emerged as relevant tools for financial forecasting, yet it remains unclear when explicit historical retrieval helps a pre-trained probabilistic forecaster in noisy equity settings. This study evaluates that question through Cross-Market Retrieval-Augmented Lag-Llama (CM-RAF-Lag-Llama), a controlled framework for comparing Lag-Llama-only forecasts with retrieval-augmented forecasts across emerging and developed market panels. The main validation uses three balanced seven-asset panels, IDX7, US7, and JP7, producing a 48-configuration panel-context-horizon grid across four context lengths and four prediction horizons. The hybrid system retrieves analogous historical windows from an indexed memory and blends the retrieved continuation with the Lag-Llama forecast while preserving the same forecasting backbone. In the same-backbone return validation, at least one retrieval variant reduces Lag-Llama MSE in all 48 configurations, with aggregate lower-error retrieval MSE reductions of 28.85\\% for IDX7, 27.27\\% for US7, and 33.60\\% for JP7. A second OHLCV-derived stock-feature experiment evaluates log-price, log-volume, range-volatility, and 20-day realized-volatility targets across 72 matched configurations. In that experiment, validation-selected RAF reduces MSE relative to Lag-Llama-only in 68 of 72 configurations and records the lowest MSE among the compared systems in 22 configurations, including 17 of 18 non-log-price US7 settings. A mechanism-level single-series ablation further compares Lag-Llama-only against Lag-Llama + RAF under zero-shot and scheduler-based inference, showing that retrieval effects are horizon-sensitive. The results indicate that retrieval can serve as an external-memory correction for Lag-Llama under selected equity targets, especially when volatility or volume structure provides reusable historical analogs.",
+    "ground_truth_doc_ids": [
+      "10.21203/rs.3.rs-10178277/v1"
+    ]
+  },
+  {
+    "id": "ef6c41dd-26b3-439f-a589-524728e75940",
+    "question_type": "authors",
+    "question": "Who are the authors of the paper 'Retrieval-Augmented Large-Language-Model-Based Time-Series Forecasting for Cross-Market Equity Analysis'?",
+    "ground_truth": "Novanto Yudistira, Yanuar Putra Kharisma Adhiyasa",
+    "ground_truth_doc_ids": [
+      "10.21203/rs.3.rs-10178277/v1"
+    ]
+  },
+  {
+    "id": "90bd426a-0b56-4151-9150-2f60e518656f",
+    "question_type": "date",
+    "question": "When was the paper 'Retrieval-Augmented Large-Language-Model-Based Time-Series Forecasting for Cross-Market Equity Analysis' published?",
+    "ground_truth": "2026-07-10",
+    "ground_truth_doc_ids": [
+      "10.21203/rs.3.rs-10178277/v1"
+    ]
+  },
+  {
+    "id": "54bea7ee-8619-447f-aebb-e15f97ced84c",
+    "question_type": "summary",
+    "question": "What is the main topic or summary of the paper 'Does retrieval-augmented generation impact medical students’ perceptions of large language models? (Preprint)'?",
+    "ground_truth": "BACKGROUND\n                  There is evidence of rapid adoption of large language models (LLMs) in undergraduate medical education, with medical students using it to support their learning. This raises concerns particularly around the accuracy of LLM-generated information students are learning. Retrieval-augmented generation (RAG), which grounds a LLM in curated materials, may be a strategy to improve their accuracy.\n                \n                \n                  OBJECTIVE\n                  This study investigates if grounding LLM outputs in verifiable sources using RAG impacts trust and perceived usability amongst medical students.\n                \n                \n                  METHODS\n                  In a four-month qualitative study, second-year medical students at Bristol Medical School used a RAG-enabled LLM (NotebookLM) to help them learn course content. Following this, their perspectives were explored using a focus group and survey was. Qualitative data was analysed using thematic analysis and was supplemented by Likert scale data.\n                \n                \n                  RESULTS\n                  RAG-based LLMs were perceived as more reliable than standard LLM responses mainly due to the transparency of and control over information sources. The system functioned as an accessible, on-demand learning resource, improving efficiency and supporting self-directed study. Students continued to use strategies to cross check generated information. They demonstrated some awareness of ethical concerns, mostly around the environmental impact of LLMs and data privacy.\n                \n                \n                  CONCLUSIONS\n                  These findings suggest that RAG may enhance students’ trust in LLM outputs while maintaining their benefit as a flexible ‘study partner’. It highlights RAG as a strategy that educators can use to support students who use LLMs in the context of increasing. However, the impact of RAG-based LLMs over a longer period and on learning outcomes requires further evaluation.",
+    "ground_truth_doc_ids": [
+      "10.2196/preprints.106157"
+    ]
+  },
+  {
+    "id": "35ce0932-476b-4d31-8f8a-5c0be98a377d",
+    "question_type": "authors",
+    "question": "Who are the authors of the paper 'Does retrieval-augmented generation impact medical students’ perceptions of large language models? (Preprint)'?",
+    "ground_truth": "Rohin Athavale, Alexander Cresswell, Alice Huffman",
+    "ground_truth_doc_ids": [
+      "10.2196/preprints.106157"
+    ]
+  },
+  {
+    "id": "279bd0b2-9692-48b0-8f1b-12976e7b902d",
+    "question_type": "date",
+    "question": "When was the paper 'Does retrieval-augmented generation impact medical students’ perceptions of large language models? (Preprint)' published?",
+    "ground_truth": "2026-07-06",
+    "ground_truth_doc_ids": [
+      "10.2196/preprints.106157"
+    ]
+  }
+]

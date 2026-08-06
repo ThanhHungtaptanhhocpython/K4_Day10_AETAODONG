@@ -1,0 +1,10 @@
+{
+  "actions": [
+    "Dropped 2 latest records.",
+    "Blanked summary for paper 10.1007/s10278-026-02086-9.",
+    "Injected noise into summary of paper 10.21203/rs.3.rs-10178277/v1.",
+    "Truncated title of paper 10.2196/preprints.106157.",
+    "Made published date stale for paper 10.3390/buildings16132637.",
+    "Duplicated paper 10.21079/11681/50309."
+  ]
+}

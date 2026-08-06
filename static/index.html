@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Observability Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="brand-icon">🔬</span>
+                <h2>DataOps Hub</h2>
+            </div>
+            
+            <div class="stats-card">
+                <p class="stats-label">TOTAL RECORDS (API)</p>
+                <h3 class="stats-value" id="raw-count">--</h3>
+            </div>
+            
+            <div class="controls-section">
+                <h3>Pipeline Controls</h3>
+                <button id="btn-phase1" class="btn btn-primary" onclick="runPhase1()">
+                    <span class="btn-icon">▶</span> Run Phase 1 (Baseline)
+                </button>
+                <button id="btn-phase2" class="btn btn-danger" onclick="runPhase2()">
+                    <span class="btn-icon">💥</span> Run Phase 2 (Corrupt)
+                </button>
+            </div>
+            
+            <div id="loader" class="loader hidden">
+                <div class="spinner"></div>
+                <p id="loader-text">Processing...</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('dashboard')">Dashboard</button>
+                <button class="tab-btn" onclick="switchTab('chat')">RAG Agent Chat</button>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div id="tab-dashboard" class="tab-content active">
+                <header class="content-header">
+                    <h1>Data Observability Dashboard</h1>
+                    <button class="btn btn-secondary btn-sm" onclick="fetchDashboardData()">↻ Refresh</button>
+                </header>
+                
+                <div class="metrics-grid">
+                    <!-- Baseline -->
+                    <div class="metric-card baseline-card">
+                        <div class="card-header">
+                            <span class="status-indicator pass"></span>
+                            <h3>Baseline</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="metric-row"><span>Quality</span> <span class="badge" id="b-quality">N/A</span></div>
+                            <div class="metric-row"><span>Hit Rate</span> <strong id="b-hit-rate">--</strong></div>
+                            <div class="metric-row"><span>Token F1</span> <strong id="b-f1">--</strong></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Corrupted -->
+                    <div class="metric-card corrupted-card">
+                        <div class="card-header">
+                            <span class="status-indicator fail"></span>
+                            <h3>Corrupted</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="metric-row"><span>Quality</span> <span class="badge" id="c-quality">N/A</span></div>
+                            <div class="metric-row"><span>Hit Rate</span> <strong id="c-hit-rate">--</strong></div>
+                            <div class="metric-row"><span>Token F1</span> <strong id="c-f1">--</strong></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Repaired -->
+                    <div class="metric-card repaired-card">
+                        <div class="card-header">
+                            <span class="status-indicator pass"></span>
+                            <h3>Repaired</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="metric-row"><span>Quality</span> <span class="badge" id="r-quality">N/A</span></div>
+                            <div class="metric-row"><span>Hit Rate</span> <strong id="r-hit-rate">--</strong></div>
+                            <div class="metric-row"><span>Token F1</span> <strong id="r-f1">--</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Tab -->
+            <div id="tab-chat" class="tab-content hidden">
+                <header class="content-header">
+                    <h1>Chat with RAG Agent</h1>
+                    <div class="agent-toggle">
+                        <label>
+                            <input type="checkbox" id="use-corrupted-toggle"> 
+                            Use Corrupted Data (Test Mode)
+                        </label>
+                    </div>
+                </header>
+                
+                <div class="chat-container">
+                    <div class="chat-history" id="chat-history">
+                        <div class="message ai-message">
+                            <div class="avatar">🤖</div>
+                            <div class="bubble">Hello! I am your research assistant. Ask me questions about the ingested papers.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="Type your question..." onkeypress="handleChatKey(event)">
+                        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>

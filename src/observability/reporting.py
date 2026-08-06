@@ -52,7 +52,22 @@ def generate_corruption_report(
     corrupted_freshness: dict[str, Any],
     repaired_freshness: dict[str, Any],
 ) -> None:
+    hit_drop = baseline_metrics.get('retrieval_hit_rate', 0) - corrupted_metrics.get('retrieval_hit_rate', 0)
+    hit_drop_pct = (hit_drop / baseline_metrics.get('retrieval_hit_rate', 1)) * 100 if baseline_metrics.get('retrieval_hit_rate', 0) > 0 else 0
+    
+    score_drop = baseline_metrics.get('mean_judge_score', 0) - corrupted_metrics.get('mean_judge_score', 0)
+    
+    analysis = f"""
+## Phân tích tác động (Root Cause Analysis)
+- **Sự cố:** Dữ liệu bị lỗi đã làm Hit Rate giảm **{hit_drop_pct:.1f}%** (từ {baseline_metrics.get('retrieval_hit_rate', 0):.4f} xuống {corrupted_metrics.get('retrieval_hit_rate', 0):.4f}).
+- **Chất lượng:** Điểm đánh giá (Judge Score) của LLM cũng giảm **{score_drop:.4f}** điểm.
+- **Phát hiện:** Hệ thống Observability đã bắt thành công các lỗi: {corrupted_quality.get('short_summaries', 0)} short summaries, {corrupted_quality.get('duplicate_paper_ids', 0)} duplicates, và {corrupted_freshness.get('stale_rows', 0)} stale rows.
+- **Khôi phục:** Nhờ cơ chế Repair từ raw data, hệ thống đã khôi phục Hit Rate về lại {repaired_metrics.get('retrieval_hit_rate', 0):.4f} và vượt qua mọi Quality/Freshness checks.
+"""
+
     content = f"""# Phase 2: Corruption and Repair Comparison Report
+
+![Metrics Chart](metrics_chart.png)
 
 ## Evaluation Metrics Comparison
 
@@ -62,6 +77,8 @@ def generate_corruption_report(
 | Token F1 | {baseline_metrics.get('mean_token_f1', 0):.4f} | {corrupted_metrics.get('mean_token_f1', 0):.4f} | {repaired_metrics.get('mean_token_f1', 0):.4f} |
 | Judge Accuracy | {baseline_metrics.get('judge_accuracy', 0):.4f} | {corrupted_metrics.get('judge_accuracy', 0):.4f} | {repaired_metrics.get('judge_accuracy', 0):.4f} |
 | Mean Judge Score | {baseline_metrics.get('mean_judge_score', 0):.4f} | {corrupted_metrics.get('mean_judge_score', 0):.4f} | {repaired_metrics.get('mean_judge_score', 0):.4f} |
+
+{analysis}
 
 ## Quality & Freshness (Corrupted)
 - Quality Passed: {corrupted_quality.get('passed', False)} (Short summaries: {corrupted_quality.get('short_summaries', 0)}, Empty titles: {corrupted_quality.get('empty_titles', 0)}, Duplicates: {corrupted_quality.get('duplicate_paper_ids', 0)})

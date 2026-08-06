@@ -78,4 +78,14 @@ def main() -> None:
         repaired_freshness
     )
     
+    import sys
+    from pathlib import Path
+    sys.path.append(str(Path(__file__).parent.parent.parent / "script"))
+    try:
+        from visualize import visualize_metrics
+        print("10. Generating metrics chart...")
+        visualize_metrics()
+    except Exception as e:
+        print(f"Failed to generate metrics chart: {e}")
+        
     print("Phase 2 complete! Comparison report generated at:", settings.paths.comparison_report)
